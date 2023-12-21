@@ -1,0 +1,59 @@
+// Цель научиться работать с ОБОБЩЕННЫМИ типами в джава
+
+// Суть - вместо передаваемых аргументов, мы передаем только ТИП аргументов (внутри <>)
+// Назначение - абстракция при работе над типами при работе с коллекциями (Java Collection Framework)
+public class ArrayList⚠️<E>⚠️ implements List<E> {
+        //конструктор
+ public ArrayList() {  }
+        // методы public
+        public boolean add(E e) {  }
+        public void add(int index, E element) {  }
+        public boolean addAll(int index, Collection<? extends E> c){ }
+        public abstract E get(int index) {  }
+        public E remove(int index) {}
+    }
+}
+
+
+
+Пример создания экземпляра класса ArrayList с типом INTEGER
+ArrayList⚠️<Integer>⚠️ lst1 = new ArrayList<Integer>();
+
+// E подстановка Integer
+lst1.add(0, new Integer(88));
+lst1.get(0);
+ArrayList ⚠️<String>⚠️ lst2 = new ArrayList<String>();
+
+// E подстановка String
+lst2.add(0, "Hello");
+lst2.get(0);
+
+
+import java.util.*;
+
+public class ArrayListWithoutGenericsTest {
+ public static void main(String[] args) {
+ List strLst = new ArrayList();
+
+// List и ArrayList содержит тип Objects
+ strLst.add("alpha");
+
+// Неявное преобразование String в Object
+ strLst.add("beta");
+ strLst.add("charlie");
+
+ Iterator iter = strLst.iterator();
+
+ while (iter.hasNext()) {
+ String str = (String)iter.next();
+
+// необходимо выполнить понижающее преобразование типов Object
+обратно в String
+ System.out.println(str);
+ }
+ strLst.add(new Integer(1234));
+// на этапе Compile/runtime невозможно определить ошибку
+ String str = (String)strLst.get(3);
+// компиляция ok, но будет runtime ClassCastException
+ }
+}
